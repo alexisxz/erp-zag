@@ -42,19 +42,19 @@ password: auftrag
 email: warehouse@email.com
 password: warehouse
 
-#### Panel
+##### Panel
  - A welcome panel
 
-### Anfragen
+#### Anfragen
  - You can create and manage your own anfragen
 
-### Auftrag
+#### Auftrag
  - You can manage and create all auftrag based on anfragen
  
-### Warehouse
+#### Warehouse
  - You can manage inbound, outbound and stock
 
-### APIS (To get all data)
+#### APIS (To get all data)
  - /api/warehouse
  - /api/anfragen
  - /api/auftrag
