@@ -1,0 +1,27 @@
+import Image from "next/image";
+
+export const metadata = {
+  title: "ZAG ERP",
+  description: "Powered by ZAG",
+};
+
+export default function Panel() {
+  return (
+    <section className="section h-screen w-full flex flex-wrap items-center justify-center bg-white">
+      <div className="container mx-auto flex flex-col flex-wrap gap-16 justify-center items-center">
+        <div className="flex flex-col flex-wrap gap-2 items-center">
+          <h1 className="h1 text-black font-bold">ZAG Zyklotron AG ERP</h1>
+          <span className="text-black">
+            {new Date().toLocaleDateString("de-DE")}
+          </span>
+        </div>
+        <Image
+          src={"https://www.zyklotron-ag.de/fileadmin/assets/zyklotron.jpg"}
+          alt="ZAG LOGO"
+          width={500}
+          height={500}
+        />
+      </div>
+    </section>
+  );
+}
