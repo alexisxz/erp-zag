@@ -26,7 +26,7 @@ yarn dev
 
 ### Pages
 #### Login (index)
- - Admin login
+ - Admin login =
 email: admin@email.com
 password: adminpassword
 
