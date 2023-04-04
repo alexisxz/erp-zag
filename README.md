@@ -30,15 +30,15 @@ yarn dev
 email: admin@email.com
 password: adminpassword
 
- - Anfragen login
+ - Anfragen login = 
 email: anfragen@email.com
 password: anfragen
 
- - Auftrag login
+ - Auftrag login = 
 email: auftrag@email.com
 password: auftrag
 
- - Warehouse login
+ - Warehouse login = 
 email: warehouse@email.com
 password: warehouse
 
@@ -55,6 +55,6 @@ password: warehouse
  - You can manage inbound, outbound and stock
 
 ### APIS (To get all data)
-/api/warehouse
-/api/anfragen
-/api/auftrag
+ - /api/warehouse
+ - /api/anfragen
+ - /api/auftrag
