@@ -75,7 +75,7 @@ export default function AuftragPage() {
         <div className="container mx-auto">
           <div className="flex flex-col gap-4 items-center">
             {/* Title */}
-            <div>
+            <div className="flex text-center">
               <h1 className="h1">Aufträge Bildschrim</h1>
             </div>
             {/* Select between new aufragen and auftrags */}
@@ -157,7 +157,7 @@ export default function AuftragPage() {
       {chooseListType === "anfragen" && (
         <section className="section">
           <div className="container mx-auto">
-            <div className="flex flex-wrap gap-4 justify-start">
+            <div className="grid grid-cols-1 lg:flex lg:flex-wrap gap-4 lg:justify-start">
               {newAnfragenList?.map((item: Anfragen) =>
                 !item ? null : (
                   <article

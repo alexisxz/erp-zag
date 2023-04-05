@@ -38,7 +38,7 @@ export default function AnfragePage() {
         .sort((a: any, b: any) => b.code - a.code)
         .slice(0, limitAnfragen)
     );
-  }, [userAnfragen, limitAnfragen]);
+  }, [userAnfragen, limitAnfragen]);  
 
   return (
     <>

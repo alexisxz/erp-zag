@@ -108,7 +108,7 @@ export const AuftragCard = ({ auftrag }: Props) => {
       {/* Extend Edit Card */}
       {!editExtend ? null : (
         <div className="p-4 bg-gray-500 rounded-b-lg flex flex-col items-center lg:flex-row gap-4 flex-wrap">
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-2 items-center flex-wrap">
             <span className="text-xs font-semibold">status:</span>
             <select
               required
@@ -119,7 +119,7 @@ export const AuftragCard = ({ auftrag }: Props) => {
                   reason: e.currentTarget.value,
                 })
               }
-              className="text-black px-2"
+              className="text-black px-2 break-words max-w-xs lg:max-w-none"
             >
               {anfragenStatus.map((item) => (
                 <option value={item} key={item}>

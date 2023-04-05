@@ -74,7 +74,7 @@ export default function WarehousePage() {
       {/* Header */}
       <section className="section">
         <div className="container mx-auto">
-          <div className="flex flex-col gap-4 items-center">
+          <div className="flex flex-col gap-4 items-center text-center">
             {/* Title */}
             <div>
               <h1 className="h1">Warehouse Bildschrim</h1>
@@ -133,7 +133,7 @@ export default function WarehousePage() {
           {/* List of warehouses and quantities */}
           <div className="flex flex-col lg:flex-row gap-4 ">
             {/* List of warehouses */}
-            <div className="self-center lg:self-start p-4 bg-gray-800 rounded-lg grid grid-cols-2 lg:grid-cols-1 gap-x-8">
+            <div className="self-center lg:self-start p-4 bg-gray-800 rounded-lg grid grid-cols-2 lg:grid-cols-1 gap-x-2">
               <div>
                 <span className="font-semibold text-[#F28B00]">
                   Eingabemenge:{" "}
