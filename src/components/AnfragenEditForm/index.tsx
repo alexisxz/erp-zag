@@ -49,7 +49,7 @@ export const AnfragenEditForm = ({ anfragen, setShowPopUp }: Props) => {
         {/* Form */}
         <form
           onSubmit={handleOnSubmit}
-          className="flex flex-col p-4 gap-4 rounded-lg bg-gray-500"
+          className="flex flex-col p-4 gap-4 rounded-lg bg-gray-500 max-w-sm lg:max-w-none"
         >
           {/* Line 1 */}
           <div>
