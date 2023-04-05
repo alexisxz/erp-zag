@@ -2,9 +2,11 @@ import { Warehouse } from "@/types/Warehouse";
 
 export const getUniqueSupplierPartNumber = (warehouses: Warehouse[]) => {
   let uniques: string[] = [];
-  if (!warehouses) return uniques;
+  if (warehouses.length <= 0) return uniques;
   uniques = [
-    ...new Set(warehouses.map((item: string) => item.supplierPartNumber)),
+    ...(new Set(
+      warehouses.map((item: Warehouse) => item.supplierPartNumber)
+    ) as any),
   ];
   return uniques;
 };
