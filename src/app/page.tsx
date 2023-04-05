@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 
-export default function HomePage() {
+export default function Home() {
   const { user } = useAuth();
   const router = useRouter();
 
