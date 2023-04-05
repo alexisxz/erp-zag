@@ -77,7 +77,7 @@ export const AnfragenForm = ({ setShowPopUp }: Props) => {
       {/* Form */}
       <form
         onSubmit={handleOnSubmit}
-        className="flex flex-col p-4 gap-4 rounded-lg bg-gray-500"
+        className="flex flex-col p-4 lg:max-w-none max-w-sm gap-4 rounded-lg bg-gray-500"
       >
         {/* Line 1 */}
         <div>
@@ -147,7 +147,7 @@ export const AnfragenForm = ({ setShowPopUp }: Props) => {
                   orderedQuantity: +e.currentTarget.value,
                 })
               }
-              className="text-black px-2"
+              className="text-black px-2 max-w-[100px]"
             />
           </div>
         </div>
