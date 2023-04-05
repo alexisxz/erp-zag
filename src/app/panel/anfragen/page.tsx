@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 export default function AnfragePage() {
   const router = useRouter();
   const { userProfile } = useAuth();
-  const { loading, error, anfragen } = useFetchAnfragen();
+  const { loading, error, userAnfragen } = useFetchAnfragen();
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [anfragenItems, setAnfragenItems] = useState<Anfragen[]>();
   const [limitAnfragen, setLimitAnfragen] = useState<number>(5);
@@ -32,11 +32,13 @@ export default function AnfragePage() {
 
   // to limit number os anfragen
   useEffect(() => {
-    if (!anfragen) return;
+    if (!userAnfragen) return;
     setAnfragenItems(
-      anfragen.sort((a: any, b: any) => b.code - a.code).slice(0, limitAnfragen)
+      userAnfragen
+        .sort((a: any, b: any) => b.code - a.code)
+        .slice(0, limitAnfragen)
     );
-  }, [anfragen, limitAnfragen]);
+  }, [userAnfragen, limitAnfragen]);
 
   return (
     <>
@@ -62,7 +64,7 @@ export default function AnfragePage() {
                 className="text-xl"
                 onClick={() =>
                   exportExcel(
-                    anfragen,
+                    userAnfragen,
                     "anfragen_data",
                     "anfragen",
                     !!userProfile.screens.find(
@@ -102,8 +104,8 @@ export default function AnfragePage() {
                 </article>
               ))}
             <div className="self-center">
-              {anfragenItems?.length &&
-              anfragenItems.length < limitAnfragen ? null : (
+              {!anfragenItems ? null : anfragenItems.length <=
+                0 ? null : anfragenItems.length < limitAnfragen ? null : (
                 <button
                   className="btn btn-lg"
                   onClick={() => setLimitAnfragen(limitAnfragen + 5)}

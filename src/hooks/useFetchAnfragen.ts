@@ -17,14 +17,28 @@ export default function useFetchAnfragen() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [anfragen, setAnfragen] = useState<Anfragen[]>();
+  const [userAnfragen, setUserAnfragen] = useState<Anfragen[]>();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const querySnapshot = await getDocs(
+        //userAnfragen
+        const queryUserSnapshot = await getDocs(
           query(collection(db, "anfragen"), where("userId", "==", user.uid))
         );
-        if (!querySnapshot.docs) return setAnfragen([]);
+        if (!queryUserSnapshot.docs) {
+          setUserAnfragen([]);
+        }
+        const userData: any[] = queryUserSnapshot.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        });
+        setUserAnfragen(userData);
+
+        //anfragen
+        const querySnapshot = await getDocs(collection(db, "anfragen"));
+        if (!querySnapshot) {
+          setAnfragen([]);
+        }
         const data: any[] = querySnapshot.docs.map((doc) => {
           return { ...doc.data(), id: doc.id };
         });
@@ -38,5 +52,5 @@ export default function useFetchAnfragen() {
     fetchData();
   }, []);
 
-  return { loading, error, anfragen };
+  return { loading, error, anfragen, userAnfragen };
 }

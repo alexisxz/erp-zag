@@ -176,8 +176,8 @@ export default function WarehousePage() {
                   </article>
                 ))}
                 <div className="self-center">
-                  {warehouseItems?.length &&
-                  warehouseItems.length < limitWarehouse ? null : (
+                  {!warehouseItems ? null : warehouseItems.length <=
+                    0 ? null : warehouseItems.length < limitWarehouse ? null : (
                     <button
                       className="btn btn-lg"
                       onClick={() => setLimitWarehouse(limitWarehouse + 5)}
