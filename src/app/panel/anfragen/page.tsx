@@ -28,7 +28,7 @@ export default function AnfragePage() {
       alert("Sie haben keinen Zugriff auf den Bildschirm");
       return router.push("panel");
     }
-  }, [userProfile]);
+  }, [router, userProfile]);
 
   // to limit number os anfragen
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function AnfragePage() {
         .sort((a: any, b: any) => b.code - a.code)
         .slice(0, limitAnfragen)
     );
-  }, [userAnfragen, limitAnfragen]);  
+  }, [userAnfragen, limitAnfragen]);
 
   return (
     <>

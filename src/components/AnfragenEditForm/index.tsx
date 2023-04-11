@@ -3,6 +3,7 @@ import { db } from "@/firebase/config";
 import { convertFirestoreDate } from "@/helpers/convertFirestoreDate";
 import { Anfragen } from "@/types/Anfragen";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 type Props = {
@@ -11,6 +12,7 @@ type Props = {
 };
 
 export const AnfragenEditForm = ({ anfragen, setShowPopUp }: Props) => {
+  const router = useRouter();
   const [anfragenData, setAnfragenData] = useState<Anfragen>(anfragen);
   const [deletePopUp, setDeletePopUp] = useState<boolean>(false);
 
@@ -32,10 +34,41 @@ export const AnfragenEditForm = ({ anfragen, setShowPopUp }: Props) => {
     if (!anfragen.id) return alert("ERROR: Bitte schließen und wieder öffnen");
 
     deleteDoc(doc(db, "anfragen", anfragen.id));
+    alert("gelöscht");
+    setDeletePopUp(false);
+    setShowPopUp(false);
   };
 
   return (
     <>
+      {/* Delet PopUp */}
+      {!deletePopUp ? null : (
+        <div className="z-[51] top-0 left-0 fixed h-full w-full backdrop-blur-sm flex flex-col items-center justify-center">
+          <div className="p-4 bg-slate-600 rounded-lg flex flex-col flex-wrap gap-4 max-w-sm lg:max-w-none text-center">
+            <div>
+              <p>
+                Wenn Sie löschen, ist eine Wiederherstellung danach nicht
+                möglich. Möchten Sie fortfahren?
+              </p>
+            </div>
+            <div className="ml-auto flex gap-4">
+              <button
+                onClick={handleOnDelete}
+                className="bg-red-400 w-20 hover:opacity-80"
+              >
+                Ja
+              </button>
+              <button
+                onClick={() => setDeletePopUp(false)}
+                className="bg-green-400 w-20 hover:opacity-80"
+              >
+                Nein
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* FORM */}
       <div className="z-50 top-0 left-0 fixed h-full w-full backdrop-blur-sm flex flex-col items-center justify-center">
         {/* Form Header */}
         <div className="bg-[#F28B00] flex gap-4 justify-around items-center py-2 px-4 rounded-t-lg shadow-lg shadow-black">
