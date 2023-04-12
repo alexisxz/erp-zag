@@ -1,6 +1,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { customers, anfragenStatus } from "@/data/parameters";
 import { app, db } from "@/firebase/config";
+import useFetchAnfragen from "@/hooks/useFetchAnfragen";
 import { Anfragen } from "@/types/Anfragen";
 import { User } from "@/types/User";
 import {
@@ -36,6 +37,7 @@ type Props = {
 
 export const AnfragenForm = ({ setShowPopUp, refetch }: Props) => {
   const { userProfile } = useAuth();
+  const { anfragen } = useFetchAnfragen();
   const [anfragenData, setAnfragenData] =
     useState<Omit<Anfragen, "id">>(initialAnfragenData);
 
@@ -43,14 +45,14 @@ export const AnfragenForm = ({ setShowPopUp, refetch }: Props) => {
     e.preventDefault();
 
     // get quantity to be the next code
-    const anfragenQtd: number = (
-      await getCountFromServer(collection(db, "anfragen"))
-    ).data().count;
+    const anfragenQtd: number[] = (
+      await getDocs(collection(db, "anfragen"))
+    ).docs.map((item) => item.data().code);
 
     // creating the whole anfragen
     const addAnfragen: Omit<Anfragen, "id"> = {
       ...anfragenData,
-      code: anfragenQtd + 1,
+      code: Math.max(...anfragenQtd) + 1,
       date: new Date(),
       userId: userProfile.id,
       userName: userProfile.username,
