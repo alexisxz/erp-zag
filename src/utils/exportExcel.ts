@@ -102,7 +102,7 @@ export const exportExcel = async (
   const wb = XLSX.utils.book_new();
   const ws = XLSX.utils.json_to_sheet(newData);
 
-  XLSX.utils.book_append_sheet(wb, ws, sheetName);
+  XLSX.utils.book_append_sheet(wb, ws, `${sheetName}.xlsx`);
 
-  XLSX.writeFileXLSX(wb, sheetName);
+  XLSX.writeFileXLSX(wb, `${sheetName}.xlsx`);
 };
