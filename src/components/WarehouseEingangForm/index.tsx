@@ -28,9 +28,10 @@ const initialWarehouseData: Warehouse = {
 
 type Props = {
   setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+  refetch: () => void;
 };
 
-export const WarehouseEingangForm = ({ setShowPopUp }: Props) => {
+export const WarehouseEingangForm = ({ setShowPopUp, refetch }: Props) => {
   const { userProfile } = useAuth();
   const [warehouseData, setWarehouseData] =
     useState<Warehouse>(initialWarehouseData);
@@ -50,10 +51,14 @@ export const WarehouseEingangForm = ({ setShowPopUp }: Props) => {
 
     // add the new anfragen to the database
     await setDoc(doc(collection(db, "warehouse")), addWarehouse);
-    alert("Daten hinzugefügt");
 
     // reset the form
     setWarehouseData(initialWarehouseData);
+
+    // refetch data
+    refetch();
+
+    alert("Daten hinzugefügt");
   };
 
   return (

@@ -31,9 +31,10 @@ const initialAnfragenData: Omit<Anfragen, "id"> = {
 
 type Props = {
   setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+  refetch: () => void;
 };
 
-export const AnfragenForm = ({ setShowPopUp }: Props) => {
+export const AnfragenForm = ({ setShowPopUp, refetch }: Props) => {
   const { userProfile } = useAuth();
   const [anfragenData, setAnfragenData] =
     useState<Omit<Anfragen, "id">>(initialAnfragenData);
@@ -57,10 +58,13 @@ export const AnfragenForm = ({ setShowPopUp }: Props) => {
 
     // add the new anfragen to the database
     await setDoc(doc(collection(db, "anfragen")), addAnfragen);
-    alert("Daten hinzugefügt");
 
     // reset the form
     setAnfragenData(initialAnfragenData);
+
+    // update the anfragen
+    refetch();
+    alert("Daten hinzugefügt");
   };
 
   return (

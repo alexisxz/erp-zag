@@ -7,9 +7,10 @@ import { db } from "@/firebase/config";
 
 type Props = {
   auftrag: Auftrag;
+  refetch: () => void;
 };
 
-export const AuftragCard = ({ auftrag }: Props) => {
+export const AuftragCard = ({ auftrag, refetch }: Props) => {
   const [editExtend, setEditExtend] = useState<boolean>(false);
   const [updatedAuftrag, setUpdatedAuftrag] = useState<Auftrag>(auftrag);
 
@@ -20,6 +21,7 @@ export const AuftragCard = ({ auftrag }: Props) => {
       reason: updatedAuftrag.reason,
       deliveryDate: updatedAuftrag.deliveryDate,
     });
+    refetch();
     alert("Daten hinzugefügt");
   };
 

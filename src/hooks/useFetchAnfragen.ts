@@ -19,38 +19,39 @@ export default function useFetchAnfragen() {
   const [anfragen, setAnfragen] = useState<Anfragen[]>();
   const [userAnfragen, setUserAnfragen] = useState<Anfragen[]>();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        //userAnfragen
-        const queryUserSnapshot = await getDocs(
-          query(collection(db, "anfragen"), where("userId", "==", user.uid))
-        );
-        if (!queryUserSnapshot.docs) {
-          setUserAnfragen([]);
-        }
-        const userData: any[] = queryUserSnapshot.docs.map((doc) => {
-          return { ...doc.data(), id: doc.id };
-        });
-        setUserAnfragen(userData);
-
-        //anfragen
-        const querySnapshot = await getDocs(collection(db, "anfragen"));
-        if (!querySnapshot) {
-          setAnfragen([]);
-        }
-        const data: any[] = querySnapshot.docs.map((doc) => {
-          return { ...doc.data(), id: doc.id };
-        });
-        setAnfragen(data);
-      } catch (error) {
-        setError("Failed to load anfragen");
-      } finally {
-        setLoading(false);
+  const fetchData = async () => {
+    try {
+      //userAnfragen
+      const queryUserSnapshot = await getDocs(
+        query(collection(db, "anfragen"), where("userId", "==", user.uid))
+      );
+      if (!queryUserSnapshot.docs) {
+        setUserAnfragen([]);
       }
+      const userData: any[] = queryUserSnapshot.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setUserAnfragen(userData);
+
+      //anfragen
+      const querySnapshot = await getDocs(collection(db, "anfragen"));
+      if (!querySnapshot) {
+        setAnfragen([]);
+      }
+      const data: any[] = querySnapshot.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setAnfragen(data);
+    } catch (error) {
+      setError("Failed to load anfragen");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
-  return { loading, error, anfragen, userAnfragen };
+  return { loading, error, anfragen, userAnfragen, refetch: fetchData };
 }

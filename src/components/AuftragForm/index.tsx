@@ -12,11 +12,15 @@ import { useState } from "react";
 type Props = {
   setSelectedAnfragen: React.Dispatch<React.SetStateAction<null | Anfragen>>;
   selectedAnfragen: Anfragen;
+  refetch: () => void;
+  refetchAnfragen: () => void;
 };
 
 export const AuftragForm = ({
   setSelectedAnfragen,
   selectedAnfragen,
+  refetch,
+  refetchAnfragen,
 }: Props) => {
   const { userProfile } = useAuth();
   const [anfragenData, setAnfragenData] = useState<Anfragen>(selectedAnfragen);
@@ -46,7 +50,6 @@ export const AuftragForm = ({
 
     // add the new auftrag to the database
     await setDoc(doc(collection(db, "auftrag")), auftragData);
-    alert("Daten hinzugefügt");
 
     // change the anfragen
     await updateDoc(doc(db, "anfragen", anfragenData.id), {
@@ -57,6 +60,12 @@ export const AuftragForm = ({
 
     // reset the form
     setSelectedAnfragen(null);
+
+    // refetch data
+    refetch();
+    refetchAnfragen();
+
+    alert("Daten hinzugefügt");
   };
 
   return (

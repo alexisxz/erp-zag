@@ -1,20 +1,44 @@
 import { customers, anfragenStatus } from "@/data/parameters";
 import { db } from "@/firebase/config";
 import { convertFirestoreDate } from "@/helpers/convertFirestoreDate";
+import useFetchAnfragen from "@/hooks/useFetchAnfragen";
+import useFetchAuftrag from "@/hooks/useFetchAuftrag";
 import { Anfragen } from "@/types/Anfragen";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type Props = {
   anfragen: Anfragen;
   setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+  refetch: () => void;
 };
 
-export const AnfragenEditForm = ({ anfragen, setShowPopUp }: Props) => {
+export const AnfragenEditForm = ({
+  anfragen,
+  setShowPopUp,
+  refetch,
+}: Props) => {
   const router = useRouter();
+  const { auftrag } = useFetchAuftrag();
   const [anfragenData, setAnfragenData] = useState<Anfragen>(anfragen);
   const [deletePopUp, setDeletePopUp] = useState<boolean>(false);
+  const [hasAuftrag, setHasAuftrag] = useState<boolean>(true);
+
+  // check if there is auftrag
+  useEffect(() => {
+    if (!auftrag || !anfragen) return;
+
+    const isAuftrag = auftrag.find((item) => item.anfragenId === anfragen.id);
+    if (!isAuftrag) return setHasAuftrag(false);
+    return setHasAuftrag(true);
+  }, [auftrag, anfragen]);
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,6 +50,7 @@ export const AnfragenEditForm = ({ anfragen, setShowPopUp }: Props) => {
     const anfragenRef = doc(db, "anfragen", anfragen.id);
 
     await updateDoc(anfragenRef, anfragenData);
+    refetch();
 
     return alert("Daten aktualisiert");
   };
@@ -34,9 +59,10 @@ export const AnfragenEditForm = ({ anfragen, setShowPopUp }: Props) => {
     if (!anfragen.id) return alert("ERROR: Bitte schließen und wieder öffnen");
 
     deleteDoc(doc(db, "anfragen", anfragen.id));
-    alert("gelöscht");
     setDeletePopUp(false);
     setShowPopUp(false);
+    refetch();
+    alert("gelöscht");
   };
 
   return (
@@ -240,12 +266,14 @@ export const AnfragenEditForm = ({ anfragen, setShowPopUp }: Props) => {
             >
               Weiter
             </button>
-            <button
-              className="btn btn-sm bg-red-400 hover:bg-red-900"
-              onClick={() => setDeletePopUp(true)}
-            >
-              Löschen
-            </button>
+            {hasAuftrag ? null : (
+              <button
+                className="btn btn-sm bg-red-400 hover:bg-red-900"
+                onClick={() => setDeletePopUp(true)}
+              >
+                Löschen
+              </button>
+            )}
           </div>
         </form>
       </div>

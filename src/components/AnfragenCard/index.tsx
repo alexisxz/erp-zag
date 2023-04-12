@@ -5,9 +5,10 @@ import { convertFirestoreDate } from "@/helpers/convertFirestoreDate";
 
 type Props = {
   anfragen: Anfragen;
+  refetch: () => void;
 };
 
-export const AnfragenCard = ({ anfragen }: Props) => {
+export const AnfragenCard = ({ anfragen, refetch }: Props) => {
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
   return (
@@ -15,7 +16,11 @@ export const AnfragenCard = ({ anfragen }: Props) => {
       {/* Edit Form */}
       {!showPopUp ? null : (
         <div>
-          <AnfragenEditForm anfragen={anfragen} setShowPopUp={setShowPopUp} />
+          <AnfragenEditForm
+            anfragen={anfragen}
+            setShowPopUp={setShowPopUp}
+            refetch={refetch}
+          />
         </div>
       )}
       {/* CARD */}

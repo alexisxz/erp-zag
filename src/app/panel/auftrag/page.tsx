@@ -14,10 +14,10 @@ import { useEffect, useState } from "react";
 export default function AuftragPage() {
   const { userProfile } = useAuth();
   const router = useRouter();
-  const { auftrag, loading, error, auftragLimit, setAuftragLimit } =
+  const { auftrag, loading, error, auftragLimit, setAuftragLimit, refetch } =
     useFetchAuftrag();
-  const { anfragen } = useFetchAnfragen();
-  const [chooseListType, setChooseListType] = useState<string>("auftrag");
+  const { anfragen, refetch: refetchAnfragen } = useFetchAnfragen();
+  const [chooseListType, setChooseListType] = useState<string>("anfragen");
   const [newAnfragenList, setNewAnfragenList] = useState<any[]>([]);
   const [auftragItems, setAuftragItems] = useState<Auftrag[]>();
   const [limitAuftrag, setLimitAuftrag] = useState<number>(5);
@@ -68,6 +68,8 @@ export default function AuftragPage() {
         <AuftragForm
           selectedAnfragen={selectedAnfragen}
           setSelectedAnfragen={setSelectedAnfragen}
+          refetch={refetch}
+          refetchAnfragen={refetchAnfragen}
         />
       )}
       {/* Header */}
@@ -132,7 +134,7 @@ export default function AuftragPage() {
                   <div className="flex flex-col gap-4">
                     {auftragItems.map((item) => (
                       <article key={item.id}>
-                        <AuftragCard auftrag={item} />
+                        <AuftragCard auftrag={item} refetch={refetch} />
                       </article>
                     ))}
                   </div>

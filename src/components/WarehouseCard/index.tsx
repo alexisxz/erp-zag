@@ -3,9 +3,10 @@ import { Warehouse } from "@/types/Warehouse";
 
 type Props = {
   warehouse: Warehouse;
+  refetch: () => void;
 };
 
-export const WarehouseCard = ({ warehouse }: Props) => {
+export const WarehouseCard = ({ warehouse, refetch }: Props) => {
   return (
     <div className="flex p-4 gap-4 bg-gray-800 rounded-lg flex-wrap">
       <div className="flex lg:flex-col items-center gap-2">

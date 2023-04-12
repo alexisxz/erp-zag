@@ -15,24 +15,25 @@ export default function useFetchWarehouse() {
   const [error, setError] = useState<string | null>(null);
   const [warehouse, setWarehouse] = useState<Warehouse[]>();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const docsSnapshot = await getDocs(
-          query(collection(db, "warehouse"), orderBy("date", "asc"))
-        );
-        const data: any[] = docsSnapshot.docs.map((doc) => {
-          return { ...doc.data(), id: doc.id };
-        });
-        setWarehouse(data);
-      } catch (error) {
-        setError("Failed to load warehouse");
-      } finally {
-        setLoading(false);
-      }
+  const fetchData = async () => {
+    try {
+      const docsSnapshot = await getDocs(
+        query(collection(db, "warehouse"), orderBy("date", "asc"))
+      );
+      const data: any[] = docsSnapshot.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setWarehouse(data);
+    } catch (error) {
+      setError("Failed to load warehouse");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
-  return { loading, error, warehouse };
+  return { loading, error, warehouse, refetch: fetchData };
 }

@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 export default function WarehousePage() {
   const router = useRouter();
   const { userProfile } = useAuth();
-  const { warehouse, loading, error } = useFetchWarehouse();
+  const { warehouse, loading, error, refetch } = useFetchWarehouse();
   const [getFilter, setGetFilter] = useState<string>("");
   const [warehouseItems, setWarehouseItems] = useState<Warehouse[]>();
   const [warehouseTotalItems, setWarehouseTotalItems] = useState<Warehouse[]>();
@@ -66,10 +66,16 @@ export default function WarehousePage() {
     <>
       {/* WarehouseForm */}
       {!showEingangPopUp ? null : (
-        <WarehouseEingangForm setShowPopUp={setShowEigangPopUp} />
+        <WarehouseEingangForm
+          setShowPopUp={setShowEigangPopUp}
+          refetch={refetch}
+        />
       )}
       {!showAusgangPopUp ? null : (
-        <WarehouseAusgangForm setShowPopUp={setShowAusgangPopUp} />
+        <WarehouseAusgangForm
+          setShowPopUp={setShowAusgangPopUp}
+          refetch={refetch}
+        />
       )}
       {/* Header */}
       <section className="section">
@@ -172,7 +178,7 @@ export default function WarehousePage() {
               <div className="flex flex-1 flex-col gap-4">
                 {warehouseItems?.map((item) => (
                   <article key={item.id}>
-                    <WarehouseCard warehouse={item} />
+                    <WarehouseCard warehouse={item} refetch={refetch} />
                   </article>
                 ))}
                 <div className="self-center">
