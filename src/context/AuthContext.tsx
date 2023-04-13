@@ -35,6 +35,7 @@ export const AuthContextProvider = ({ children }: Props) => {
 
   // Update password
   const updatePassword = async (email: string) => {
+    toast.loading("wird bearbeitet...", { duration: 1000 });
     sendPasswordResetEmail(auth, email)
       .then(() => {
         toast("Update-Informationen in Ihrer E-Mail");

@@ -50,7 +50,7 @@ export const SideBar = () => {
             }}
             className="btn btn-link pb-[2px]"
           >
-            Change Password
+            Passwort ändern
           </button>
         </div>
         {/* Nav List */}
