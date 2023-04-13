@@ -4,15 +4,10 @@ import { convertFirestoreDate } from "@/helpers/convertFirestoreDate";
 import useFetchAnfragen from "@/hooks/useFetchAnfragen";
 import useFetchAuftrag from "@/hooks/useFetchAuftrag";
 import { Anfragen } from "@/types/Anfragen";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast, { Toaster, ToastBar } from "react-hot-toast";
 
 type Props = {
   anfragen: Anfragen;
@@ -45,31 +40,55 @@ export const AnfragenEditForm = ({
 
     if (deletePopUp === true) return;
 
-    if (!anfragen.id) return alert("ERROR: Bitte schließen und wieder öffnen");
+    if (!anfragen.id) return toast.error("Bitte schließen und wieder öffnen");
 
     const anfragenRef = doc(db, "anfragen", anfragen.id);
 
     await updateDoc(anfragenRef, anfragenData);
-    refetch();
 
-    return alert("Daten aktualisiert");
+    // Toaster
+    toast.success("Daten hinzugefügt");
+
+    refetch();
   };
 
-  const handleOnDelete = () => {
-    if (!anfragen.id) return alert("ERROR: Bitte schließen und wieder öffnen");
+  const handleOnDelete = async () => {
+    if (!anfragen.id) return toast.error("Bitte schließen und wieder öffnen");
 
-    deleteDoc(doc(db, "anfragen", anfragen.id));
+    // Toaster
+    toast.success("gelöscht");
+
+    await deleteDoc(doc(db, "anfragen", anfragen.id));
+
     setDeletePopUp(false);
     setShowPopUp(false);
+
     refetch();
-    alert("gelöscht");
   };
 
   return (
     <>
-      {/* Delet PopUp */}
+      {/* TOASTER */}
+      <div>
+        <Toaster reverseOrder={false} position="top-center">
+          {(t) => (
+            <ToastBar toast={t}>
+              {({ icon, message }) => (
+                <>
+                  {icon}
+                  {message}
+                  {t.type !== "loading" && (
+                    <button onClick={() => toast.dismiss(t.id)}>❌</button>
+                  )}
+                </>
+              )}
+            </ToastBar>
+          )}
+        </Toaster>
+      </div>
+      {/* Delete PopUp */}
       {!deletePopUp ? null : (
-        <div className="z-[51] top-0 left-0 fixed h-full w-full backdrop-blur-sm flex flex-col items-center justify-center">
+        <div className="z-[50] top-0 left-0 fixed h-full w-full backdrop-blur-sm flex flex-col items-center justify-center">
           <div className="p-4 bg-slate-600 rounded-lg flex flex-col flex-wrap gap-4 max-w-sm lg:max-w-none text-center">
             <div>
               <p>
@@ -95,7 +114,7 @@ export const AnfragenEditForm = ({
         </div>
       )}
       {/* FORM */}
-      <div className="z-50 top-0 left-0 fixed h-full w-full backdrop-blur-sm flex flex-col items-center justify-center">
+      <div className="z-30 top-0 left-0 fixed h-full w-full backdrop-blur-sm flex flex-col items-center justify-center">
         {/* Form Header */}
         <div className="bg-[#F28B00] flex gap-4 justify-around items-center py-2 px-4 rounded-t-lg shadow-lg shadow-black">
           <div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { convertFirestoreDate } from "../../helpers/convertFirestoreDate";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import toast, { Toaster, ToastBar } from "react-hot-toast";
 
 type Props = {
   auftrag: Auftrag;
@@ -22,11 +23,30 @@ export const AuftragCard = ({ auftrag, refetch }: Props) => {
       deliveryDate: updatedAuftrag.deliveryDate,
     });
     refetch();
-    alert("Daten hinzugefügt");
+    // Toaster
+    toast.success("Daten hinzugefügt");
   };
 
   return (
     <>
+      {/* TOASTER */}
+      <div>
+        <Toaster reverseOrder={false} position="top-center">
+          {(t) => (
+            <ToastBar toast={t}>
+              {({ icon, message }) => (
+                <>
+                  {icon}
+                  {message}
+                  {t.type !== "loading" && (
+                    <button onClick={() => toast.dismiss(t.id)}>❌</button>
+                  )}
+                </>
+              )}
+            </ToastBar>
+          )}
+        </Toaster>
+      </div>
       {/* Card */}
       <div
         className="bg-gray-800 p-4 rounded-t-lg flex flex-col gap-4 hover:border hover:bg-transparent hover:cursor-pointer"

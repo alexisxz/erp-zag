@@ -7,7 +7,8 @@ import {
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext<any>({});
 export const useAuth = () => useContext(AuthContext);
@@ -36,10 +37,10 @@ export const AuthContextProvider = ({ children }: Props) => {
   const updatePassword = async (email: string) => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        alert("Update-Informationen in Ihrer E-Mail");
+        toast("Update-Informationen in Ihrer E-Mail");
       })
       .catch((error) => {
-        alert(`${error.code}: ${error.message}`);
+        toast.error(`${error.code}: ${error.message}`);
       });
   };
 

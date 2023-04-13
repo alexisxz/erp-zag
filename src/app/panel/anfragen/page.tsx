@@ -41,7 +41,7 @@ export default function AnfragePage() {
   }, [userAnfragen, limitAnfragen]);
 
   return (
-    <>
+    <main>
       {/* Form */}
       {!showPopUp ? null : (
         <AnfragenForm setShowPopUp={setShowPopUp} refetch={refetch} />
@@ -57,7 +57,9 @@ export default function AnfragePage() {
             {/* Button */}
             <div className="flex gap-4">
               <button
-                onClick={() => setShowPopUp(true)}
+                onClick={() => {
+                  setShowPopUp(true);
+                }}
                 className="btn btn-sm bg-green-500 hover:bg-green-900"
               >
                 Neue Anfrage
@@ -119,6 +121,6 @@ export default function AnfragePage() {
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }

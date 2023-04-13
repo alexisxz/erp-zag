@@ -2,6 +2,7 @@ import { useAuth } from "@/context/AuthContext";
 import { getSideBarList } from "@/utils/getSideBarList";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import toast, { Toaster, ToastBar } from "react-hot-toast";
 
 export const SideBar = () => {
   const pathname = usePathname();
@@ -10,6 +11,24 @@ export const SideBar = () => {
 
   return (
     <>
+      {/* TOASTER */}
+      <div>
+        <Toaster reverseOrder={false} position="top-center">
+          {(t) => (
+            <ToastBar toast={t}>
+              {({ icon, message }) => (
+                <>
+                  {icon}
+                  {message}
+                  {t.type !== "loading" && (
+                    <button onClick={() => toast.dismiss(t.id)}>❌</button>
+                  )}
+                </>
+              )}
+            </ToastBar>
+          )}
+        </Toaster>
+      </div>
       {/* Sidebar */}
       <aside className="sticky bg-gray-800 flex flex-col gap-4 p-4 top-0 left-0 z-40 lg:w-72 lg:h-screen w-screen transition-transform translate-x-0">
         {/* Header */}
@@ -26,7 +45,9 @@ export const SideBar = () => {
             Logout
           </button>
           <button
-            onClick={() => updatePassword(userProfile.email)}
+            onClick={() => {
+              updatePassword(userProfile.email);
+            }}
             className="btn btn-link pb-[2px]"
           >
             Change Password
