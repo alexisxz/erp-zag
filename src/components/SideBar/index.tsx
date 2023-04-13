@@ -41,7 +41,16 @@ export const SideBar = () => {
           </h3>
         </div>
         <div className="flex gap-2 justify-center">
-          <button onClick={logout} className="btn btn-link pb-[2px]">
+          <button
+            onClick={() =>
+              toast.promise(logout(), {
+                loading: "wird bearbeitet...",
+                success: "schau öfter mal vorbei :)",
+                error: "Oops, versuchen Sie es noch einmal",
+              })
+            }
+            className="btn btn-link pb-[2px]"
+          >
             Logout
           </button>
           <button
