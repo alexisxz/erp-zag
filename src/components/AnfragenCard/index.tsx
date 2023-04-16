@@ -1,7 +1,8 @@
 import { Anfragen } from "@/types/Anfragen";
 import { useState } from "react";
-import { AnfragenEditForm } from "../AnfragenEditForm";
 import { convertFirestoreDate } from "@/helpers/convertFirestoreDate";
+import { ToastBar, Toaster, toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 type Props = {
   anfragen: Anfragen;
@@ -9,27 +10,36 @@ type Props = {
 };
 
 export const AnfragenCard = ({ anfragen, refetch }: Props) => {
+  const router = useRouter();
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
 
   return (
     <div>
-      {/* Edit Form */}
-      {!showPopUp ? null : (
-        <div>
-          <AnfragenEditForm
-            anfragen={anfragen}
-            setShowPopUp={setShowPopUp}
-            refetch={refetch}
-          />
-        </div>
-      )}
+      {/* TOASTER */}
+      <div>
+        <Toaster reverseOrder={false} position="top-center">
+          {(t) => (
+            <ToastBar toast={t}>
+              {({ icon, message }) => (
+                <>
+                  {icon}
+                  {message}
+                  {t.type !== "loading" && (
+                    <button onClick={() => toast.dismiss(t.id)}>❌</button>
+                  )}
+                </>
+              )}
+            </ToastBar>
+          )}
+        </Toaster>
+      </div>
       {/* CARD */}
       <div
         className="flex flex-col gap-4 flex-wrap bg-gray-800 p-4 rounded-lg hover:border hover:bonder-[#F28B00] hover:bg-transparent hover:cursor-pointer"
         onClick={() => {
           anfragen.auftragStatus !== "nicht erstellt"
-            ? alert("Auftrag bereits erstellt")
-            : setShowPopUp(true);
+            ? toast.error("Auftrag bereits erstellt")
+            : router.push(`/panel/anfragen/${anfragen.id}`);
         }}
       >
         {/* Infos */}
@@ -39,16 +49,12 @@ export const AnfragenCard = ({ anfragen, refetch }: Props) => {
           </div>
 
           <div className="flex flex-col justify-center">
-            <span className="text-xs">Firma</span>
-            <span>{anfragen.supplierName}</span>
+            <span className="text-xs">Kunde</span>
+            <span>{anfragen.customer}</span>
           </div>
           <div className="flex flex-col justify-center">
-            <span className="text-xs">Bestellnummer</span>
-            <span>{anfragen.supplierPartNumber}</span>
-          </div>
-          <div className="flex flex-col justify-center">
-            <span className="text-xs">Benotig</span>
-            <span>{anfragen.orderedQuantity}</span>
+            <span className="text-xs">Verwendung</span>
+            <span>{anfragen.useProprosal}</span>
           </div>
           <div className="flex flex-col justify-center">
             <span className="text-xs">Auftrag Status</span>

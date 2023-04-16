@@ -140,8 +140,8 @@ export default function AuftragPage() {
                   </div>
                 )}
                 <div className="self-center">
-                  {auftragItems?.length &&
-                  auftragItems.length < limitAuftrag ? null : (
+                  {!auftragItems ? null : auftragItems.length <=
+                    0 ? null : auftragItems.length < limitAuftrag ? null : (
                     <button
                       className="btn btn-lg"
                       onClick={() => setLimitAuftrag(limitAuftrag + 5)}

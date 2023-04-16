@@ -3,14 +3,13 @@
 // anfragen02 - edit anfrag if there is no auftrag for this anfrag created
 // anfragen03 - view all anfrages
 
+import { Material } from "./Material";
+
 export type Anfragen = {
   id: string;
   code: number; // auto generated
   date: Date; // auto generated
-  description: string; // Beschreibung
-  orderedQuantity: number; // Benotig
-  supplierName: string; // Firma
-  supplierPartNumber: string; // Bestellnummer
+  materials: Material[];
   useProprosal: string; // Verwendung
   customer: string; // Kunde
   desiredDeliveryDate: Date; // Gew. Lieferdatum

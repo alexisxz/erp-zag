@@ -1,6 +1,5 @@
 "use client";
 import { AnfragenCard } from "@/components/AnfragenCard";
-import { AnfragenForm } from "@/components/AnfragenForm";
 import { useAuth } from "@/context/AuthContext";
 import useFetchAnfragen from "@/hooks/useFetchAnfragen";
 import { Anfragen } from "@/types/Anfragen";
@@ -12,7 +11,6 @@ export default function AnfragePage() {
   const router = useRouter();
   const { userProfile } = useAuth();
   const { loading, error, userAnfragen, refetch } = useFetchAnfragen();
-  const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const [anfragenItems, setAnfragenItems] = useState<Anfragen[]>();
   const [limitAnfragen, setLimitAnfragen] = useState<number>(5);
 
@@ -42,10 +40,6 @@ export default function AnfragePage() {
 
   return (
     <main>
-      {/* Form */}
-      {!showPopUp ? null : (
-        <AnfragenForm setShowPopUp={setShowPopUp} refetch={refetch} />
-      )}
       {/* Header */}
       <section className="section">
         <div className="container mx-auto">
@@ -57,9 +51,7 @@ export default function AnfragePage() {
             {/* Button */}
             <div className="flex gap-4">
               <button
-                onClick={() => {
-                  setShowPopUp(true);
-                }}
+                onClick={() => router.push("/panel/anfragen/neue-anfrage")}
                 className="btn btn-sm bg-green-500 hover:bg-green-900"
               >
                 Neue Anfrage
