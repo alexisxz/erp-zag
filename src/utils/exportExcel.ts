@@ -36,10 +36,7 @@ export const exportExcel = async (
     newData = data.map((item: Auftrag) => ({
       Code: item.code,
       Datum: convertFirestoreDate(item.createdAt),
-      Beschreibung: item.description,
-      Benotig: item.orderedQuantity,
-      Firma: item.supplierName,
-      Bestellnummer: item.supplierPartNumber,
+      Materials: item.materials,
       Verwendung: item.useProprosal,
       Kunde: item.customer,
       Gew_Lieferdatum: convertFirestoreDate(item.desiredDeliveryDate),
@@ -82,10 +79,7 @@ export const exportExcel = async (
       newData = data.map((item: Anfragen) => ({
         Code: item.code,
         Datum: convertFirestoreDate(item.date),
-        Beschreibung: item.description,
-        Benotig: item.orderedQuantity,
-        Firma: item.supplierName,
-        Bestellnummer: item.supplierPartNumber,
+        Materials: item.materials,
         Verwendung: item.useProprosal,
         Kunde: item.customer,
         Gew_Lieferdatum: convertFirestoreDate(item.desiredDeliveryDate),
