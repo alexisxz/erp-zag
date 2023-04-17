@@ -178,7 +178,7 @@ export default function NeueAnfrage() {
             <div className="flex flex-col items-center flex-wrap">
               {/* FOMR */}
               <div className="flex flex-col flex-wrap gap-4">
-                <div className="flex gap-4 pb-4 flex-wrap border-b border-white">
+                <div className="flex gap-4 pb-4 flex-wrap items-center border-b border-white">
                   {/* VERWENDUNG */}
                   <div className="flex flex-col gap-1">
                     <span className="text-sm">Verwendung</span>

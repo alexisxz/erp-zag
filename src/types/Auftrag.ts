@@ -3,6 +3,7 @@
 // auftrag02 - edit auftrag
 // auftrag03 - view all auftrags
 
+import { Material } from "./Material";
 import { User } from "./User";
 
 export type Auftrag = {
@@ -10,10 +11,7 @@ export type Auftrag = {
   id: string;
   code: number; // comes from code of anfragen
   anfragenDate: Date; // comes from date of anfragen
-  description: string; // comes from anfragen
-  orderedQuantity: number; // comes from anfragen
-  supplierName: string; // comes from anfragen
-  supplierPartNumber: string; // comes from anfragen
+  materials: Material[];
   useProprosal: string; // comes from anfragen
   customer: string; // comes from anfragen
   desiredDeliveryDate: Date; // comes from anfragen
@@ -24,7 +22,7 @@ export type Auftrag = {
   // auftrag process
   createdAt: Date; // AuftrageDatum - auto generated
   userId: string; // comes from anfragen
-  username: string; // comes from userProfile
+  userName: string; // comes from userProfile
   deliveryDate?: Date; //Lieferzeit
   invoice?: string; // Kundenbestell
 };
