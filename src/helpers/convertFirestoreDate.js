@@ -1,5 +1,5 @@
 export const convertFirestoreDate = (date, action) => {
-  if (!date) return
+  if (!date) return;
 
   const convertedDate = date.toDate();
 

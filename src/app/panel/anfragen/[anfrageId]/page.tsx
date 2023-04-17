@@ -23,14 +23,14 @@ const initialAnfragenData: Anfragen = {
   materials: [],
   useProprosal: "",
   customer: "",
-  desiredDeliveryDate: new Date(),
+  desiredDeliveryDate: "",
   reason: "",
   userId: "",
   userName: "",
   auftragStatus: "nicht erstellt",
 };
 
-export default function Page({ params }: PageType) {
+export default function AnfrageId({ params }: PageType) {
   const router = useRouter();
   const { refetch } = useFetchAnfragen();
   const [anfrage, setAnfrage] = useState<any>(initialAnfragenData);
@@ -273,11 +273,10 @@ export default function Page({ params }: PageType) {
                     <input
                       type="date"
                       defaultValue={
-                        anfrage.desiredDeliveryDate ===
-                          anfrage.desiredDeliveryDate
+                        anfrage.desiredDeliveryDate !== ""
                           ? convertFirestoreDate(anfrage.desiredDeliveryDate)
-                            .toISOString()
-                            .substring(0, 10)
+                              .toISOString()
+                              .substring(0, 10)
                           : ""
                       }
                       onChange={(e) =>

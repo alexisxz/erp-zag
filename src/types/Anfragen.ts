@@ -12,7 +12,7 @@ export type Anfragen = {
   materials: Material[];
   useProprosal: string; // Verwendung
   customer: string; // Kunde
-  desiredDeliveryDate: Date; // Gew. Lieferdatum
+  desiredDeliveryDate: Date | string; // Gew. Lieferdatum
   userId: string; // useId
   userName: string;
   auftragId?: string;
