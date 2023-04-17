@@ -135,7 +135,7 @@ export default function Page({ params }: PageType) {
   };
 
   return (
-    <main>
+    <main className="overflow-hidden">
       {/* TOASTER */}
       <div>
         <Toaster reverseOrder={false} position="top-center">
@@ -213,7 +213,7 @@ export default function Page({ params }: PageType) {
             <div className="flex flex-col items-center flex-wrap">
               {/* FOMR */}
               <div className="flex flex-col flex-wrap gap-4">
-                <div className="flex gap-4 pb-4 flex-wrap border-b border-white">
+                <div className="flex gap-4 pb-4 flex-wrap border-b border-white ">
                   {/* VERWENDUNG */}
                   <div className="flex flex-col gap-1">
                     <span className="text-sm">Verwendung</span>
@@ -257,7 +257,7 @@ export default function Page({ params }: PageType) {
                           reason: e.currentTarget.value,
                         })
                       }
-                      className="text-black px-2"
+                      className="text-black px-2 max-w-xs"
                     >
                       <option value=""></option>
                       {anfragenStatus.map((item) => (
@@ -312,7 +312,7 @@ export default function Page({ params }: PageType) {
                           description: e.currentTarget.value,
                         })
                       }
-                      className="text-black px-2"
+                      className="text-black px-2 max-w-xs lg:max-w-none"
                     />
                   </div>
                   {/* Material Form */}
@@ -383,7 +383,7 @@ export default function Page({ params }: PageType) {
                     {materials.map((item) => (
                       <div
                         key={item.supplierPartNumber}
-                        className="grid grid-cols-2 gap-2 lg:grid-cols-5 mb-4 p-2 border rounded-md"
+                        className="grid grid-cols-2 gap-2 lg:grid-cols-5 mb-4 p-2 border rounded-md max-w-xs lg:max-w-none"
                       >
                         <span>
                           {item.description.length > 10
