@@ -17,7 +17,7 @@ export type Auftrag = {
   desiredDeliveryDate: Date; // comes from anfragen
   reason: string; // comes from anfragen // Ursache
   auftragStatus: string; // status, but we can change
-  anfragenId: string; // comes from anfragen
+  anfrageId: string; // comes from anfragen
   requestedUserName: string; // comes from anfragen
   // auftrag process
   createdAt: Date; // AuftrageDatum - auto generated

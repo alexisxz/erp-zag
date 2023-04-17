@@ -17,7 +17,7 @@ export const AuftragCard = ({ auftrag, refetch }: Props) => {
 
   const handleOnSubmit = async () => {
     await updateDoc(doc(db, "auftrag", auftrag.id), updatedAuftrag);
-    await updateDoc(doc(db, "anfragen", auftrag.anfragenId), {
+    await updateDoc(doc(db, "anfragen", auftrag.anfrageId), {
       auftragStatus: updatedAuftrag.auftragStatus,
       reason: updatedAuftrag.reason,
       deliveryDate: updatedAuftrag.deliveryDate,

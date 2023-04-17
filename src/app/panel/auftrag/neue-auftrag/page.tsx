@@ -45,7 +45,8 @@ export default function NeueAuftrag() {
             userName: userProfile.username,
             requestedUserName: getSelectedAnfrage.userName,
             createdAt: new Date(),
-            anfragenDate: getSelectedAnfrage.date
+            anfragenDate: getSelectedAnfrage.date,
+            auftragStatus: "in Bearbeitung",
         });
 
         // change the anfragen

@@ -1,6 +1,5 @@
 "use client";
 import { AuftragCard } from "@/components/AuftragCard";
-import { AuftragForm } from "@/components/AuftragForm";
 import { useAuth } from "@/context/AuthContext";
 import { convertFirestoreDate } from "@/helpers/convertFirestoreDate";
 import useFetchAnfragen from "@/hooks/useFetchAnfragen";
@@ -22,9 +21,6 @@ export default function AuftragPage() {
   const [newAnfragenList, setNewAnfragenList] = useState<any[]>([]);
   const [auftragItems, setAuftragItems] = useState<Auftrag[]>();
   const [limitAuftrag, setLimitAuftrag] = useState<number>(5);
-  const [selectedAnfragen, setSelectedAnfragen] = useState<Anfragen | null>(
-    null
-  );
 
   // to validate user screen
   useEffect(() => {
@@ -64,15 +60,6 @@ export default function AuftragPage() {
 
   return (
     <>
-      {/* PopUpForm */}
-      {!selectedAnfragen ? null : (
-        <AuftragForm
-          selectedAnfragen={selectedAnfragen}
-          setSelectedAnfragen={setSelectedAnfragen}
-          refetch={refetch}
-          refetchAnfragen={refetchAnfragen}
-        />
-      )}
       {/* Header */}
       <section className="section">
         <div className="container mx-auto">

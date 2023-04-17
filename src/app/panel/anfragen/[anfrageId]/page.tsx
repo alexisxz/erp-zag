@@ -6,7 +6,7 @@ import useFetchAnfragen from "@/hooks/useFetchAnfragen";
 import { Anfragen } from "@/types/Anfragen";
 import { Material } from "@/types/Material";
 import { deleteDoc, doc, getDoc, query, updateDoc } from "firebase/firestore";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ToastBar, Toaster, toast } from "react-hot-toast";
 
@@ -274,10 +274,10 @@ export default function Page({ params }: PageType) {
                       type="date"
                       defaultValue={
                         anfrage.desiredDeliveryDate ===
-                        anfrage.desiredDeliveryDate
+                          anfrage.desiredDeliveryDate
                           ? convertFirestoreDate(anfrage.desiredDeliveryDate)
-                              .toISOString()
-                              .substring(0, 10)
+                            .toISOString()
+                            .substring(0, 10)
                           : ""
                       }
                       onChange={(e) =>

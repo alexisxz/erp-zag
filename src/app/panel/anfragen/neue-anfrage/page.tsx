@@ -5,7 +5,7 @@ import { db } from "@/firebase/config";
 import { Anfragen } from "@/types/Anfragen";
 import { Material } from "@/types/Material";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ToastBar, Toaster, toast } from "react-hot-toast";
 
