@@ -1,7 +1,6 @@
 "use client";
 import { AuthContextProvider } from "@/context/AuthContext";
 import "./globals.css";
-import Head from "next/head";
 
 // export const metadata = {
 //   title: "ZAG ERP",

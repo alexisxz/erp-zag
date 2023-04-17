@@ -17,7 +17,7 @@ export const AuftragCard = ({ auftrag, refetch }: Props) => {
 
   const handleOnSubmit = async () => {
     await updateDoc(doc(db, "auftrag", auftrag.id), updatedAuftrag);
-    await updateDoc(doc(db, "anfragen", auftrag.anfragenId), {
+    await updateDoc(doc(db, "anfragen", auftrag.anfrageId), {
       auftragStatus: updatedAuftrag.auftragStatus,
       reason: updatedAuftrag.reason,
       deliveryDate: updatedAuftrag.deliveryDate,
@@ -68,25 +68,6 @@ export const AuftragCard = ({ auftrag, refetch }: Props) => {
               {convertFirestoreDate(auftrag.anfragenDate, "inString")}
             </span>
           </div>
-          <div className="flex flex-col flex-1">
-            <span className="text-xs font-semibold">Beschreibung:</span>
-            <span>{auftrag.description}</span>
-          </div>
-        </div>
-        {/* Line 1 */}
-        <div className="flex gap-4 flex-wrap">
-          <div className="flex flex-col ">
-            <span className="text-xs font-semibold">Firma:</span>
-            <span>{auftrag.supplierName}</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xs font-semibold">Bestellnummer:</span>
-            <span>{auftrag.supplierPartNumber}</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xs font-semibold">Benotig:</span>
-            <span>{auftrag.orderedQuantity}</span>
-          </div>
           <div className="flex flex-col ">
             <span className="text-xs font-semibold">Gew. Lieferdatum:</span>
             <span>
@@ -103,6 +84,7 @@ export const AuftragCard = ({ auftrag, refetch }: Props) => {
           </div>
         </div>
       </div>
+
       {/* Status div */}
       <div>
         {updatedAuftrag.auftragStatus === "in Bearbeitung" ? (
@@ -194,8 +176,8 @@ export const AuftragCard = ({ auftrag, refetch }: Props) => {
               defaultValue={
                 updatedAuftrag.deliveryDate === auftrag.deliveryDate
                   ? convertFirestoreDate(updatedAuftrag.deliveryDate)
-                      .toISOString()
-                      .substring(0, 10)
+                    .toISOString()
+                    .substring(0, 10)
                   : ""
               }
               onChange={(e) =>
@@ -211,6 +193,34 @@ export const AuftragCard = ({ auftrag, refetch }: Props) => {
             <button className="btn btn-sm" onClick={() => handleOnSubmit()}>
               Weiter
             </button>
+          </div>
+          {/* MATERIAL LIST */}
+          <div className="basis-full">
+            <h3 className="h3">Materials:</h3>
+            {auftrag.materials.map(item => (
+              <article key={item.supplierPartNumber} className="p-2 border rounded-md mt-4">
+                <div>
+                  <div className="flex flex-col flex-wrap gap-1 mb-4">
+                    <span className="text-sm font-bold">Beschreibung:</span>
+                    <div className="break-words hyphens-manual max-w-xs lg:max-w-5xl">{item.description}</div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="flex flex-col flex-wrap gap-1 items-center">
+                      <span className="text-sm font-bold">Bestellnummer:</span>
+                      <span>{item.supplierPartNumber}</span>
+                    </div>
+                    <div className="flex flex-col flex-wrap gap-1 items-center">
+                      <span className="text-sm font-bold">Benotig:</span>
+                      <span>{item.quantity} Stck</span>
+                    </div>
+                    <div className="flex flex-col flex-wrap gap-1 items-center">
+                      <span className="text-sm font-bold">Firma:</span>
+                      <span>{item.supplierName}</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       )}

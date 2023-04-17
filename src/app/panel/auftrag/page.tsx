@@ -1,6 +1,5 @@
 "use client";
 import { AuftragCard } from "@/components/AuftragCard";
-import { AuftragForm } from "@/components/AuftragForm";
 import { useAuth } from "@/context/AuthContext";
 import { convertFirestoreDate } from "@/helpers/convertFirestoreDate";
 import useFetchAnfragen from "@/hooks/useFetchAnfragen";
@@ -10,6 +9,7 @@ import { Auftrag } from "@/types/Auftrag";
 import { exportExcel } from "@/utils/exportExcel";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import NeueAuftrag from "./neue-auftrag/page";
 
 export default function AuftragPage() {
   const { userProfile } = useAuth();
@@ -21,9 +21,6 @@ export default function AuftragPage() {
   const [newAnfragenList, setNewAnfragenList] = useState<any[]>([]);
   const [auftragItems, setAuftragItems] = useState<Auftrag[]>();
   const [limitAuftrag, setLimitAuftrag] = useState<number>(5);
-  const [selectedAnfragen, setSelectedAnfragen] = useState<Anfragen | null>(
-    null
-  );
 
   // to validate user screen
   useEffect(() => {
@@ -63,15 +60,6 @@ export default function AuftragPage() {
 
   return (
     <>
-      {/* PopUpForm */}
-      {!selectedAnfragen ? null : (
-        <AuftragForm
-          selectedAnfragen={selectedAnfragen}
-          setSelectedAnfragen={setSelectedAnfragen}
-          refetch={refetch}
-          refetchAnfragen={refetchAnfragen}
-        />
-      )}
       {/* Header */}
       <section className="section">
         <div className="container mx-auto">
@@ -104,8 +92,16 @@ export default function AuftragPage() {
                 Anfragen
               </button>
             </div>
-            <div>
-              {chooseListType === "anfragen" ? null : (
+            {/* ADD AUFTRAG */}
+
+            <div className="flex gap-4">
+              <button
+                onClick={() => router.push("/panel/auftrag/neue-auftrag")}
+                className="btn btn-sm bg-green-500 hover:bg-green-900"
+              >
+                Neue Aufträg
+              </button>
+              {/* {chooseListType === "anfragen" ? null : (
                 <button
                   className="text-xl"
                   onClick={() =>
@@ -114,7 +110,7 @@ export default function AuftragPage() {
                 >
                   📄
                 </button>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -140,15 +136,15 @@ export default function AuftragPage() {
                   </div>
                 )}
                 <div className="self-center">
-                  {auftragItems?.length &&
-                  auftragItems.length < limitAuftrag ? null : (
-                    <button
-                      className="btn btn-lg"
-                      onClick={() => setLimitAuftrag(limitAuftrag + 5)}
-                    >
-                      Mehr
-                    </button>
-                  )}
+                  {!auftragItems ? null : auftragItems.length <=
+                    0 ? null : auftragItems.length < limitAuftrag ? null : (
+                      <button
+                        className="btn btn-lg"
+                        onClick={() => setLimitAuftrag(limitAuftrag + 5)}
+                      >
+                        Mehr
+                      </button>
+                    )}
                 </div>
               </div>
             )}
@@ -163,9 +159,8 @@ export default function AuftragPage() {
               {newAnfragenList?.map((item: Anfragen) =>
                 !item ? null : (
                   <article
-                    onClick={() => setSelectedAnfragen(item)}
                     key={item.id}
-                    className="bg-gray-800 p-4 rounded-md flex flex-col gap-4 hover:border hover:border-white hover:bg-transparent hover:cursor-pointer"
+                    className="bg-gray-800 p-4 rounded-md flex flex-col gap-4"
                   >
                     {/* Header */}
                     <div className="flex self-center flex-col items-center">
@@ -180,12 +175,12 @@ export default function AuftragPage() {
                     </div>
                     {/* Content */}
                     <div className="flex gap-2 items-center">
-                      <span className="text-xs">Bestellnummer:</span>
-                      <span>{item.supplierPartNumber}</span>
+                      <span className="text-xs">Verwendung:</span>
+                      <span>{item.useProprosal}</span>
                     </div>
                     <div className="flex gap-2 items-center">
-                      <span className="text-xs">Firma:</span>
-                      <span>{item.supplierName}</span>
+                      <span className="text-xs">Kunde:</span>
+                      <span>{item.customer}</span>
                     </div>
                     <div className="flex gap-2 items-center">
                       <span className="text-xs">Gew. Lieferdatum:</span>
