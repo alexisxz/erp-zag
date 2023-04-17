@@ -101,7 +101,7 @@ export default function AuftragPage() {
               >
                 Neue Aufträg
               </button>
-              {chooseListType === "anfragen" ? null : (
+              {/* {chooseListType === "anfragen" ? null : (
                 <button
                   className="text-xl"
                   onClick={() =>
@@ -110,7 +110,7 @@ export default function AuftragPage() {
                 >
                   📄
                 </button>
-              )}
+              )} */}
             </div>
           </div>
         </div>

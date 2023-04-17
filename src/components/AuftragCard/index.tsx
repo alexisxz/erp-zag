@@ -200,20 +200,20 @@ export const AuftragCard = ({ auftrag, refetch }: Props) => {
             {auftrag.materials.map(item => (
               <article key={item.supplierPartNumber} className="p-2 border rounded-md mt-4">
                 <div>
-                  <div className="flex flex-wrap gap-1 items-center">
+                  <div className="flex flex-col flex-wrap gap-1 mb-4">
                     <span className="text-sm font-bold">Beschreibung:</span>
-                    <span>{item.description}</span>
+                    <div className="break-words hyphens-manual max-w-xs lg:max-w-5xl">{item.description}</div>
                   </div>
-                  <div className="grid grid-cols-3">
-                    <div className="flex flex-wrap gap-1 items-center">
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="flex flex-col flex-wrap gap-1 items-center">
                       <span className="text-sm font-bold">Bestellnummer:</span>
                       <span>{item.supplierPartNumber}</span>
                     </div>
-                    <div className="flex flex-wrap gap-1 items-center">
+                    <div className="flex flex-col flex-wrap gap-1 items-center">
                       <span className="text-sm font-bold">Benotig:</span>
                       <span>{item.quantity} Stck</span>
                     </div>
-                    <div className="flex flex-wrap gap-1 items-center">
+                    <div className="flex flex-col flex-wrap gap-1 items-center">
                       <span className="text-sm font-bold">Firma:</span>
                       <span>{item.supplierName}</span>
                     </div>

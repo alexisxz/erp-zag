@@ -56,7 +56,7 @@ export default function AnfragePage() {
               >
                 Neue Anfrage
               </button>
-              <button
+              {/* <button
                 className="text-xl"
                 onClick={() =>
                   exportExcel(
@@ -70,7 +70,7 @@ export default function AnfragePage() {
                 }
               >
                 📄
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -102,13 +102,13 @@ export default function AnfragePage() {
             <div className="self-center">
               {!anfragenItems ? null : anfragenItems.length <=
                 0 ? null : anfragenItems.length < limitAnfragen ? null : (
-                <button
-                  className="btn btn-lg"
-                  onClick={() => setLimitAnfragen(limitAnfragen + 5)}
-                >
-                  Mehr
-                </button>
-              )}
+                  <button
+                    className="btn btn-lg"
+                    onClick={() => setLimitAnfragen(limitAnfragen + 5)}
+                  >
+                    Mehr
+                  </button>
+                )}
             </div>
           </div>
         </div>
