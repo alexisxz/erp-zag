@@ -3,7 +3,7 @@ A web app to be an ERP System to a medical company in Germany with the features:
 1 - Create an "anfragen" (a purchase request)
 2 - Create an "auftrag" (a purchase order)
 3 - Manage warehouse (inbound, outbound and stock)
-
+4 -
 
 
 ## Getting Started
