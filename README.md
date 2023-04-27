@@ -4,6 +4,8 @@ A web app to be an ERP System to a medical company in Germany with the features:
 2 - Create an "auftrag" (a purchase order)
 3 - Manage warehouse (inbound, outbound and stock)
 
+
+
 ## Getting Started
 
 First, set up you firebase config in the project;
