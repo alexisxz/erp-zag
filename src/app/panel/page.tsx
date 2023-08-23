@@ -10,12 +10,11 @@ export default function Panel() {
     <section className="section h-screen w-full flex flex-wrap items-center justify-center bg-white text-center">
       <div className="container mx-auto flex flex-col flex-wrap gap-16 justify-center items-center">
         <div className="flex flex-col flex-wrap gap-2 items-center justify-center">
-          <h1 className="h1 text-black font-bold">ZAG Zyklotron AG ERP</h1>
+          <h1 className="h1 text-black font-bold">COMPANY NAME ERP</h1>
           <span className="text-black">
             {new Date().toLocaleDateString("de-DE")}
           </span>
         </div>
-        ERP
         {/* <Image
           src={"https://www.zyklotron-ag.de/fileadmin/assets/zyklotron.jpg"}
           alt="ZAG LOGO"
