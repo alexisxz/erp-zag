@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 export const metadata = {
-  title: "ZAG ERP",
-  description: "Powered by ZAG",
+  title: "ERP",
+  description: "Powered by Alexis Matos",
 };
 
 export default function Panel() {
@@ -15,13 +15,14 @@ export default function Panel() {
             {new Date().toLocaleDateString("de-DE")}
           </span>
         </div>
-        <Image
+        ERP
+        {/* <Image
           src={"https://www.zyklotron-ag.de/fileadmin/assets/zyklotron.jpg"}
           alt="ZAG LOGO"
           width={500}
           height={500}
           className="self-center"
-        />
+        /> */}
       </div>
     </section>
   );
